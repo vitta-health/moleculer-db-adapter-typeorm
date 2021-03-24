@@ -15,10 +15,10 @@
   },
   "include": [
     "src/**/*.ts",
-    "examples/**/*.ts"
   ],
   "exclude": [
     "node_modules",
+    "examples/**/*.ts",
     "__mocks__/**/*",
     "**/__mocks__/*"
   ]
