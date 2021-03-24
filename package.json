@@ -1,6 +1,6 @@
 {
-  "name": "moleculer-db-adapter-typeorm",
-  "version": "0.1.4",
+  "name": "@vitta-health/moleculer-db-adapter-typeorm",
+  "version": "0.1.5",
   "description": "typescript sql adapter using typeorm",
   "main": "./index.js",
   "typings": "./index.d.ts",
@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dkuida/moleculer-db-adapter-typeorm.git"
+    "url": "git+https://github.com/vitta-health/moleculer-db-adapter-typeorm.git"
   },
   "keywords": [
     "moleculer",
@@ -35,9 +35,9 @@
   "author": "Dan Kuida",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dkuida/moleculer-db-adapter-typeorm/issues"
+    "url": "https://github.com/vitta-health/moleculer-db-adapter-typeorm/issues"
   },
-  "homepage": "https://github.com/dkuida/moleculer-db-adapter-typeorm#readme",
+  "homepage": "https://github.com/vitta-health/moleculer-db-adapter-typeorm#readme",
   "devDependencies": {
     "@dkuida/logger-wrapper": ">=1.5.3",
     "@types/bluebird": "^3.5.27",
