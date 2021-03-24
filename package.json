@@ -20,7 +20,7 @@
     "tsc": "tsc --declaration",
     "ts:watch": "tsc --watch",
     "clean": "rimraf dist coverage",
-    "deploy": "npm build && npm run create-package && cd ./dist/package && npm publish",
+    "deploy": "npm version patch -m \"Upgrade to %s\" && npm build && npm run create-package && cd ./dist/package && npm publish",
     "preversion": "npm run lint && npm run tsc && npm run test",
     "postversion": "git push && git push --follow-tags"
   },
