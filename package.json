@@ -1,6 +1,6 @@
 {
   "name": "@vitta-health/moleculer-db-adapter-typeorm",
-  "version": "0.1.6",
+  "version": "0.1.20",
   "description": "typescript sql adapter using typeorm",
   "main": "./index.js",
   "typings": "./index.d.ts",
@@ -43,30 +43,28 @@
     "@types/bluebird": "^3.5.27",
     "@types/jest": "^24.0.16",
     "@types/node": "^12.6.9",
-    "chalk": "^2.4.2",
+    "@typescript-eslint/parser": "^1.13.0",
     "bluebird": "^3.5.5",
+    "chalk": "^2.4.2",
     "copyfiles": "^2.1.0",
     "coveralls": "^3.0.3",
-    "jest": "^24.8.0",
     "eslint": "^5.16.0",
+    "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
     "moleculer": ">=0.13.5",
+    "moleculer-db": ">=0.7.9",
     "moleculer-decorators": "1.1.0",
+    "pre-commit": "^1.2.2",
     "reflect-metadata": ">=0.1.13",
     "sqlite3": "^4.0.9",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
     "tslint": "^5.16.0",
-    "typescript": ">=3.4.5",
     "tslint-eslint-rules": "^5.4.0",
-    "@typescript-eslint/parser": "^1.13.0",
-    "pre-commit": "^1.2.2",
-    "moleculer-db": ">=0.7.9",
-    "typeorm": ">=0.2.13"
+    "typescript": ">=3.4.5"
   },
   "peerDependencies": {
-    "moleculer-db": "0.7.x || 0.8.x",
-    "typeorm": ">=0.2.13"
+    "moleculer-db": "0.7.x || 0.8.x"
   },
   "engines": {
     "node": ">= 8.x.x"
@@ -103,5 +101,8 @@
       "json",
       "node"
     ]
+  },
+  "dependencies": {
+    "typeorm": "^0.2.31"
   }
 }
