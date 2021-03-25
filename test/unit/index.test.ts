@@ -227,10 +227,8 @@ describe("Test TypeOrmAdapter", () => {
         };
 
         adapter.updateById(5, update);
-        expect(adapter.repository.save).toHaveBeenCalledTimes(1);
-        expect(adapter.repository.save).toHaveBeenCalledWith(
-          Object.assign({}, { id: 5 }, update.$set)
-        );
+        expect(adapter.repository.update).toHaveBeenCalledTimes(1);
+        expect(adapter.repository.update).toHaveBeenCalledWith(5, update.$set);
       });
 
       it("call destroy", () => {
