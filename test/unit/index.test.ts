@@ -221,18 +221,14 @@ describe("Test TypeOrmAdapter", () => {
         );
       });
 
-      it("call updateById", async () => {
+      it("call updateById", () => {
         const update = {
           $set: { title: "Test" },
         };
 
-        const entity = await adapter.findById(5);
-
-        await adapter.updateById(5, update);
-        expect(adapter.repository.save).toHaveBeenCalledTimes(1);
-        expect(adapter.repository.save).toHaveBeenCalledWith(
-          Object.assign({}, entity, update.$set)
-        );
+        adapter.updateById(5, update);
+        expect(adapter.repository.update).toHaveBeenCalledTimes(1);
+        expect(adapter.repository.update).toHaveBeenCalledWith(5, update.$set);
       });
 
       it("call destroy", () => {
