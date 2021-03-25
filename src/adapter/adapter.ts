@@ -8,9 +8,9 @@ import {
   DeepPartial,
   FindConditions,
   FindManyOptions,
-} from 'typeorm';
+} from "typeorm";
 
-import * as Moleculer from 'moleculer';
+import * as Moleculer from "moleculer";
 /* tslint:disable-next-line */
 import { Service, ServiceBroker, Errors } from "moleculer";
 
@@ -81,7 +81,7 @@ export class TypeOrmDbAdapter<T> {
 
     if (!isValid) {
       throw new Errors.MoleculerError(
-        'The provided model should be a TypeORM entity model'
+        "The provided model should be a TypeORM entity model"
       );
     }
     this.entity = entityFromService;
@@ -108,11 +108,11 @@ export class TypeOrmDbAdapter<T> {
 
   public updateMany(where: FindConditions<T>, update: DeepPartial<T>) {
     const criteria: FindConditions<T> = { where } as any;
-    return this.repository.update(criteria, <any> update);
+    return this.repository.update(criteria, <any>update);
   }
 
   public updateById(id: number, update: { $set: DeepPartial<T> }) {
-    return this.insert({ id, ...update.$set});
+    return this.repository.save({ id, ...update.$set });
   }
 
   public removeMany(where: FindConditions<T>) {
@@ -192,25 +192,25 @@ export class TypeOrmDbAdapter<T> {
 
   private transformSort(
     paramSort: string | string[]
-  ): { [columnName: string]: 'ASC' | 'DESC' } {
+  ): { [columnName: string]: "ASC" | "DESC" } {
     let sort = paramSort;
-    if (typeof sort === 'string') {
-      sort = sort.replace(/,/, ' ').split(' ');
+    if (typeof sort === "string") {
+      sort = sort.replace(/,/, " ").split(" ");
     }
     if (Array.isArray(sort)) {
       const sortObj: IndexMap = {};
       sort.forEach((s) => {
-        if (s.startsWith('-')) {
-          sortObj[s.slice(1)] = 'DESC';
+        if (s.startsWith("-")) {
+          sortObj[s.slice(1)] = "DESC";
         } else {
-          sortObj[s] = 'ASC';
+          sortObj[s] = "ASC";
         }
       });
       // @ts-ignore
       return sortObj;
     }
 
-    if (typeof sort === 'object') {
+    if (typeof sort === "object") {
       return sort;
     }
     return {};
