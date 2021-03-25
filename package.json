@@ -71,7 +71,7 @@
     "node": ">= 8.x.x"
   },
   "pre-commit": [
-    "lint",
+    "lint:fix",
     "tsc",
     "test"
   ],

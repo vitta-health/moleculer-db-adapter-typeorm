@@ -112,7 +112,7 @@ export class TypeOrmDbAdapter<T> {
   }
 
   public updateById(id: number, update: { $set: DeepPartial<T> }) {
-    return this.repository.update(id, <any> update.$set);
+    return this.insert({ id, ...update.$set});
   }
 
   public removeMany(where: FindConditions<T>) {
