@@ -8,9 +8,9 @@ import {
   DeepPartial,
   FindConditions,
   FindManyOptions,
-} from 'typeorm';
+} from "typeorm";
 
-import * as Moleculer from 'moleculer';
+import * as Moleculer from "moleculer";
 /* tslint:disable-next-line */
 import { Service, ServiceBroker, Errors } from "moleculer";
 
@@ -34,6 +34,10 @@ export class TypeOrmDbAdapter<T> {
     return this.createCursor(filters, false);
   }
 
+  public findMany(query: FindManyOptions) {
+    return this.repository.find(query);
+  }
+
   public findOne(query: FindOneOptions) {
     return this.repository.findOne(query);
   }
@@ -54,7 +58,9 @@ export class TypeOrmDbAdapter<T> {
     return this.repository.save(entity);
   }
 
-  public create(entity: any) {
+  public async create(entityData: any) {
+    const entity: any = this.repository.create(entityData);
+
     return this.insert(entity);
   }
 
@@ -79,7 +85,7 @@ export class TypeOrmDbAdapter<T> {
 
     if (!isValid) {
       throw new Errors.MoleculerError(
-        'The provided model should be a TypeORM entity model'
+        "The provided model should be a TypeORM entity model"
       );
     }
     this.entity = entityFromService;
@@ -106,7 +112,7 @@ export class TypeOrmDbAdapter<T> {
 
   public updateMany(where: FindConditions<T>, update: DeepPartial<T>) {
     const criteria: FindConditions<T> = { where } as any;
-    return this.repository.update(criteria, <any> update);
+    return this.repository.update(criteria, <any>update);
   }
 
   public async updateById(id: number, update: { $set: DeepPartial<T> }) {
@@ -198,27 +204,27 @@ export class TypeOrmDbAdapter<T> {
     }
   }
 
-  private transformSort(
-    paramSort: string | string[]
-  ): { [columnName: string]: 'ASC' | 'DESC' } {
+  private transformSort(paramSort: string | string[]): {
+    [columnName: string]: "ASC" | "DESC";
+  } {
     let sort = paramSort;
-    if (typeof sort === 'string') {
-      sort = sort.replace(/,/, ' ').split(' ');
+    if (typeof sort === "string") {
+      sort = sort.replace(/,/, " ").split(" ");
     }
     if (Array.isArray(sort)) {
       const sortObj: IndexMap = {};
       sort.forEach((s) => {
-        if (s.startsWith('-')) {
-          sortObj[s.slice(1)] = 'DESC';
+        if (s.startsWith("-")) {
+          sortObj[s.slice(1)] = "DESC";
         } else {
-          sortObj[s] = 'ASC';
+          sortObj[s] = "ASC";
         }
       });
       // @ts-ignore
       return sortObj;
     }
 
-    if (typeof sort === 'object') {
+    if (typeof sort === "object") {
       return sort;
     }
     return {};
