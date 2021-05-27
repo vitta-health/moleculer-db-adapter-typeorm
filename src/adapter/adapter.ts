@@ -42,8 +42,8 @@ export class TypeOrmDbAdapter<T> {
     return this.repository.findOne(query);
   }
 
-  public findById(id: number) {
-    return this.repository.findOne(id);
+  public findById(id: number, options: FindOneOptions = {}) {
+    return this.repository.findOne(id, options);
   }
 
   public findByIds(idList: any[]) {
@@ -116,7 +116,7 @@ export class TypeOrmDbAdapter<T> {
   }
 
   public async updateById(id: number, update: { $set: DeepPartial<T> }) {
-    const entity: any = await this.findById(id);
+    const entity: any = await this.findById(id, { withDeleted: true });
 
     if (entity) {
       Object.keys(update.$set).forEach((key) => {

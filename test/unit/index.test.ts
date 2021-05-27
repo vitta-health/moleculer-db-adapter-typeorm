@@ -177,7 +177,7 @@ describe("Test TypeOrmAdapter", () => {
       it("call findByPk", async () => {
         await adapter.findById(5);
         expect(adapter.repository.findOne).toHaveBeenCalledTimes(1);
-        expect(adapter.repository.findOne).toHaveBeenCalledWith(5);
+        expect(adapter.repository.findOne).toHaveBeenCalledWith(5, {});
       });
 
       it("call findByIds", async () => {
