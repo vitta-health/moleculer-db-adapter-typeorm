@@ -12,7 +12,8 @@ import {
 
 import * as Moleculer from 'moleculer';
 /* tslint:disable-next-line */
-import { Service, ServiceBroker, Errors } from "moleculer";
+import { Service, ServiceBroker, Errors } from 'moleculer';
+import { v4 as uuidv4 } from 'uuid';
 
 interface IndexMap {
   [key: string]: string;
@@ -96,7 +97,9 @@ export class TypeOrmDbAdapter<T> {
       entities: [this.entity],
       synchronize: true,
       ...this.opts,
+      name: uuidv4(),
     });
+
     return connectionPromise.then((connection) => {
       this.connection = connection;
       this.repository = this.connection.getRepository(this.entity);
