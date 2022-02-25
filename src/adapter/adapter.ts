@@ -115,7 +115,7 @@ export class TypeOrmDbAdapter<T> {
 
   public updateMany(where: FindConditions<T>, update: DeepPartial<T>) {
     const criteria: FindConditions<T> = { where } as any;
-    return this.repository.update(criteria, <any>update);
+    return this.repository.update(criteria, <any> update);
   }
 
   public async updateById(id: number, update: { $set: DeepPartial<T> }) {
