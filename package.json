@@ -44,6 +44,7 @@
     "@types/bluebird": "^3.5.27",
     "@types/jest": "^24.0.16",
     "@types/node": "^12.6.9",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/parser": "^1.13.0",
     "bluebird": "^3.5.5",
     "chalk": "^2.4.2",
@@ -104,6 +105,7 @@
     ]
   },
   "dependencies": {
-    "typeorm": "^0.2.31"
+    "typeorm": "^0.2.31",
+    "uuid": "^8.3.2"
   }
 }

@@ -9,8 +9,9 @@ import {
   FindConditions,
   FindManyOptions,
   getConnectionManager,
-  getConnection,
 } from 'typeorm';
+
+import { v4 as uuidV4 } from 'uuid';
 
 import * as Moleculer from 'moleculer';
 /* tslint:disable-next-line */
@@ -93,15 +94,18 @@ export class TypeOrmDbAdapter<T> {
   }
 
   public async connect() {
-    if (!getConnectionManager() || !getConnectionManager().has('default')) {
-      this.connection = await createConnection({
-        entities: [this.entity],
-        synchronize: true,
-        ...this.opts,
-      });
-    } else {
-      this.connection = getConnection();
+    let connectionName = 'default';
+
+    if (getConnectionManager() && getConnectionManager().has('default')) {
+      connectionName = uuidV4();
     }
+
+    this.connection = await createConnection({
+      entities: [this.entity],
+      synchronize: true,
+      ...this.opts,
+      name: connectionName,
+    });
 
     this.repository = this.connection.getRepository(this.entity);
   }
@@ -115,7 +119,7 @@ export class TypeOrmDbAdapter<T> {
 
   public updateMany(where: FindConditions<T>, update: DeepPartial<T>) {
     const criteria: FindConditions<T> = { where } as any;
-    return this.repository.update(criteria, <any> update);
+    return this.repository.update(criteria, <any>update);
   }
 
   public async updateById(id: number, update: { $set: DeepPartial<T> }) {
