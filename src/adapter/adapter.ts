@@ -8,6 +8,8 @@ import {
   DeepPartial,
   FindConditions,
   FindManyOptions,
+  getConnectionManager,
+  getConnection,
 } from 'typeorm';
 
 import * as Moleculer from 'moleculer';
@@ -92,18 +94,19 @@ export class TypeOrmDbAdapter<T> {
     this.entity = entityFromService;
   }
 
-  public connect() {
-    const connectionPromise = createConnection({
-      entities: [this.entity],
-      synchronize: true,
-      ...this.opts,
-      name: uuidv4(),
-    });
+  public async connect() {
+    if (!getConnectionManager() || !getConnectionManager().has('default')) {
+      this.connection = await createConnection({
+        entities: [this.entity],
+        synchronize: true,
+        ...this.opts,
+        name: uuidv4(),
+      });
+    } else {
+      this.connection = getConnection();
+    }
 
-    return connectionPromise.then((connection) => {
-      this.connection = connection;
-      this.repository = this.connection.getRepository(this.entity);
-    });
+    this.repository = this.connection.getRepository(this.entity);
   }
 
   public disconnect() {
@@ -115,7 +118,7 @@ export class TypeOrmDbAdapter<T> {
 
   public updateMany(where: FindConditions<T>, update: DeepPartial<T>) {
     const criteria: FindConditions<T> = { where } as any;
-    return this.repository.update(criteria, <any> update);
+    return this.repository.update(criteria, <any>update);
   }
 
   public async updateById(id: number, update: { $set: DeepPartial<T> }) {
